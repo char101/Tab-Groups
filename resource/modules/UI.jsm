@@ -1359,15 +1359,17 @@ this.UI = {
 		}
 		for(let name of keyArray) {
 			let element = gWindow.document.getElementById("key_" + name);
-			let key = element.getAttribute('keycode') || element.getAttribute("key");
-			let modifiers = element.getAttribute('modifiers') || "";
-			this._browserKeys.push({
-				name: name,
-				key: Keysets.translateFromConstantCode(key),
-				accel: modifiers.includes('accel'),
-				alt: modifiers.includes('alt'),
-				shift: modifiers.includes('shift')
-			});
+			if (element) {
+				let key = element.getAttribute('keycode') || element.getAttribute("key");
+				let modifiers = element.getAttribute('modifiers') || "";
+				this._browserKeys.push({
+					name: name,
+					key: Keysets.translateFromConstantCode(key),
+					accel: modifiers.includes('accel'),
+					alt: modifiers.includes('alt'),
+					shift: modifiers.includes('shift')
+				});
+			}
 		}
 
 		// The following are handled by gBrowser._handleKeyDownEvent(): http://mxr.mozilla.org/mozilla-central/source/browser/base/content/tabbrowser.xml
