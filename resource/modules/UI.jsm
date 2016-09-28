@@ -1351,7 +1351,7 @@ this.UI = {
 			"undo", "redo", "cut", "copy", "paste",
 			"selectAll", "find"
 		];
-		if(window.gDevTools) {
+		if(gWindow.gDevTools) {
 			keyArray.push("browserConsole");
 		}
 		if(!WINNT) {
