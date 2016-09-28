@@ -1,4 +1,4 @@
-// VERSION 1.3.28
+// VERSION 1.3.29
 
 // Used to scroll groups automatically, for instance when dragging a tab over a group's overflown edges.
 this.Synthesizer = {
@@ -1349,8 +1349,11 @@ this.UI = {
 			"newNavigator", "closeWindow", "undoCloseWindow",
 			"newNavigatorTab", "close", "undoCloseTab",
 			"undo", "redo", "cut", "copy", "paste",
-			"selectAll", "find", "browserConsole"
+			"selectAll", "find"
 		];
+		if(window.gDevTools) {
+			keyArray.push("browserConsole");
+		}
 		if(!WINNT) {
 			keyArray.push("quitApplication");
 			if(DARWIN) {
@@ -1359,17 +1362,15 @@ this.UI = {
 		}
 		for(let name of keyArray) {
 			let element = gWindow.document.getElementById("key_" + name);
-			if (element) {
-				let key = element.getAttribute('keycode') || element.getAttribute("key");
-				let modifiers = element.getAttribute('modifiers') || "";
-				this._browserKeys.push({
-					name: name,
-					key: Keysets.translateFromConstantCode(key),
-					accel: modifiers.includes('accel'),
-					alt: modifiers.includes('alt'),
-					shift: modifiers.includes('shift')
-				});
-			}
+			let key = element.getAttribute('keycode') || element.getAttribute("key");
+			let modifiers = element.getAttribute('modifiers') || "";
+			this._browserKeys.push({
+				name: name,
+				key: Keysets.translateFromConstantCode(key),
+				accel: modifiers.includes('accel'),
+				alt: modifiers.includes('alt'),
+				shift: modifiers.includes('shift')
+			});
 		}
 
 		// The following are handled by gBrowser._handleKeyDownEvent(): http://mxr.mozilla.org/mozilla-central/source/browser/base/content/tabbrowser.xml
